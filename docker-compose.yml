@@ -1,0 +1,8 @@
+services:
+  app:
+    image: node:20.12.2
+    working_dir: /root
+    volumes:
+      - /Users/voitov/devops-for-developers-project-74/app:/root
+    user: "${UID:-1000}:${GID:-1000}"
+    command: make test

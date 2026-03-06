@@ -1,0 +1,7 @@
+services:
+  app:
+    # ✅ Пробрасываем порт 8080 наружу
+    ports:
+      - "8080:8080"
+    # ✅ Меняем команду с make test → make dev
+    command: make dev
