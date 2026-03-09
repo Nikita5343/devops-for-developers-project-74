@@ -1,7 +1,12 @@
 services:
   app:
-    # ✅ Пробрасываем порт 8080 наружу
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /root
+    volumes:
+      - ./app:/root                  # ← Volumes ТУТ!
     ports:
       - "8080:8080"
-    # ✅ Меняем команду с make test → make dev
+    user: "${UID:-1000}:${GID:-1000}"
     command: make dev
