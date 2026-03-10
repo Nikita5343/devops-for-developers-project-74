@@ -4,9 +4,23 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /root
-    volumes:
-      - ./app:/root                  # ← Volumes ТУТ!
     ports:
       - "8080:8080"
-    user: "${UID:-1000}:${GID:-1000}"
     command: make dev
+
+  webserver:
+    image: caddy:2.6-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ${PWD}/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:
