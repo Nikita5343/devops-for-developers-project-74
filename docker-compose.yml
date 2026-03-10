@@ -1,9 +1,25 @@
+version: "3.9"
 services:
   app:
     image: voitov/devops-for-developers-project-74:latest
-    build:
-      context: .
-      dockerfile: Dockerfile.production
-    working_dir: /root
-    # user: "${UID:-1000}:${GID:-1000}"
-    command: make test
+    container_name: app-1
+    expose:
+      - "8080"
+    networks:
+      - devnet
+
+  webserver:
+    image: caddy:2.6-alpine
+    container_name: webserver-1
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - app
+    networks:
+      - devnet
+
+networks:
+  devnet:
