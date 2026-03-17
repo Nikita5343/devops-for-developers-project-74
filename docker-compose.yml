@@ -8,22 +8,21 @@ services:
       - devnet
     depends_on:
       db:
-        condition: service_healthy  # ✅ Отлично!
+        condition: service_healthy
 
   db:
-    image: postgres:latest
+    image: postgres:latest  # Это PG 18+
     restart: unless-stopped
     environment:           
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sqlpostgres
       POSTGRES_DB: my_db
-    # env_file: .env  ← ❌ УДАЛИТЬ для CI!
     ports:
       - "5455:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql  # ✅ ИСПРАВЛЕНО: без /data!
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]  # ← Жёстко "postgres"!
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -45,4 +44,4 @@ networks:
   devnet:
 
 volumes:
-  - postgres_data:/var/lib/postgresql
+  postgres_data: {}  # ✅ ПРАВИЛЬНО: верхний уровень
