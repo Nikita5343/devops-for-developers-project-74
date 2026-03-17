@@ -8,26 +8,26 @@ services:
       - devnet
     depends_on:
       db:
-        condition: service_healthy  # Ждет healthy БД
+        condition: service_healthy  # ✅ Отлично!
 
   db:
     image: postgres:latest
     restart: unless-stopped
-    environment:          # ← Явно передаем в контейнер (лучше чем env_file)
+    environment:           
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sqlpostgres
       POSTGRES_DB: my_db
-    env_file: .env        # Дополнительно (опционально)
+    # env_file: .env  ← ❌ УДАЛИТЬ для CI!
     ports:
       - "5455:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]  # ← Жёстко "postgres"!
       interval: 5s
       timeout: 5s
       retries: 5
-      # ↑ ${POSTGRES_USER} подставляется из .env автоматически!
+
   webserver:
     image: caddy:2.6-alpine
     container_name: webserver-1
@@ -45,4 +45,4 @@ networks:
   devnet:
 
 volumes:
-  postgres_data: 
+  postgres_data:
