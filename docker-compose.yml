@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   app:
     image: voitov/devops-for-developers-project-74:latest
@@ -15,9 +14,9 @@ services:
     image: postgres:latest
     restart: unless-stopped
     environment:          # ← Явно передаем в контейнер (лучше чем env_file)
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sqlpostgres
+      POSTGRES_DB: my_db
     env_file: .env        # Дополнительно (опционально)
     ports:
       - "5455:5432"
