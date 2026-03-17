@@ -45,4 +45,4 @@ networks:
   devnet:
 
 volumes:
-  postgres_data:
+  - postgres_data:/var/lib/postgresql
