@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 5
 
-  webserver:
+  caddy:
     image: caddy:2.6-alpine
     container_name: webserver-1
     ports:
