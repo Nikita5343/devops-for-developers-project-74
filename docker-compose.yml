@@ -27,19 +27,6 @@ services:
       timeout: 5s
       retries: 5
 
-  caddy:
-    image: caddy:2.6-alpine
-    container_name: webserver-1
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-    depends_on:
-      - app
-    networks:
-      - devnet
-
 networks:
   devnet:
 
