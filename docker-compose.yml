@@ -3,7 +3,6 @@ services:
     environment:           
       DATABASE_NAME: postgres
       DATABASE_PASSWORD: sqlpostgres
-      DATABASE_DB: my_db
       DATABASE_HOST: db
     build:
       context: .
@@ -20,7 +19,7 @@ services:
     environment:           
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sqlpostgres
-      POSTGRES_DB: my_db
+      POSTGRES_DB: postgres
     volumes:
       - postgres_data:/var/lib/postgresql  # ✅ ИСПРАВЛЕНО: без /data!
     healthcheck:
