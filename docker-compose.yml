@@ -1,11 +1,10 @@
 services:
   app:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    command: npm test
     image: voitov/devops-for-developers-project-74:latest
-    container_name: app-1
-    expose:
-      - "8080"
-    networks:
-      - devnet
     depends_on:
       db:
         condition: service_healthy
@@ -17,8 +16,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sqlpostgres
       POSTGRES_DB: my_db
-    ports:
-      - "5455:5432"
     volumes:
       - postgres_data:/var/lib/postgresql  # ✅ ИСПРАВЛЕНО: без /data!
     healthcheck:
@@ -26,9 +23,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
-networks:
-  devnet:
 
 volumes:
   postgres_data: {}  # ✅ ПРАВИЛЬНО: верхний уровень

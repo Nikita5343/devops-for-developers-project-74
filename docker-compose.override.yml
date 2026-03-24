@@ -3,7 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    working_dir: /root
+    volumes:
+      - ./app:/app
     ports:
       - "8080:8080"
     command: make dev
