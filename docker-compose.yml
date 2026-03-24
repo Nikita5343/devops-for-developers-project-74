@@ -1,5 +1,10 @@
 services:
   app:
+    environment:           
+      DATABASE_NAME: postgres
+      DATABASE_PASSWORD: sqlpostgres
+      DATABASE_DB: my_db
+      DATABASE_HOST: db
     build:
       context: .
       dockerfile: Dockerfile.production
