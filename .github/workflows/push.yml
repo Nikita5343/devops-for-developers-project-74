@@ -13,6 +13,9 @@ jobs:
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
+
+    - name: Build
+      run: make compose-build
     
     - name: Run tests
       run: make ci
