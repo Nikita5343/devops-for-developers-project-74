@@ -10,3 +10,5 @@ ci:
 	docker compose -f docker-compose.yml up --abort-on-container-exit --build
 build:
 	docker build -f Dockerfile.production  --platform linux/amd64  -t voitov/devops-for-developers-project-74:latest .
+compose_build:
+	docker compose build
