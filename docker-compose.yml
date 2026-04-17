@@ -1,10 +1,10 @@
 services:
   app:
     environment:
-      DATABASE_USERNAME: postgres           
-      DATABASE_NAME: postgres
-      DATABASE_PASSWORD: sqlpostgres
-      DATABASE_HOST: db
+      DATABASE_USERNAME: ${DATABASE_USERNAME}           
+      DATABASE_NAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
     build:
       context: .
       dockerfile: Dockerfile.production
@@ -15,12 +15,12 @@ services:
         condition: service_healthy
 
   db:
-    image: postgres:latest  # Это PG 18+
+    image: postgres:16.4
     restart: unless-stopped
     environment:           
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: sqlpostgres
-      POSTGRES_DB: my_db
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql  # ✅ ИСПРАВЛЕНО: без /data!
     healthcheck:
