@@ -21,7 +21,7 @@ jobs:
       run: make compose-build
     
     - name: Run tests
-      run: make ci
+      run: make compose-test
       
   build-push:
     needs: test
